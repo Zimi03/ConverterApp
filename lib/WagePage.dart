@@ -2,59 +2,83 @@ import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'package:flutter/services.dart';
 
-List<String> currencies = [
-  'PLN',
-  'USD',
-  'EUR',
-  'GBP',
+List<String> wages = [
+  'KG',
+  'g',
+  'dag',
+  'lbs',
+  't',
+  'oz',
 ];
 
-Map<String, Map<String, double>> currenciesCoefficients = {
-  'PLN': {
-    'USD': 0.25,
-    'EUR': 0.22,
-    'GBP': 0.19,
+Map<String, Map<String, double>> wagesCoefficients = {
+  'KG': {
+    'g': 1000.0,
+    'dag': 100.0,
+    'lbs': 2.20462,
+    't': 0.001,
+    'oz': 35.274,
   },
-  'USD': {
-    'PLN': 4.0,
-    'EUR': 0.88,
-    'GBP': 0.76,
+  'g': {
+    'KG': 0.001,
+    'dag': 0.1,
+    'lbs': 0.00220462,
+    't': 0.000001,
+    'oz': 0.035274,
   },
-  'EUR': {
-    'PLN': 4.5,
-    'USD': 1.14,
-    'GBP': 0.86,
+  'dag': {
+    'KG': 0.01,
+    'g': 10.0,
+    'lbs': 0.0220462,
+    't': 0.00001,
+    'oz': 0.35274,
   },
-  'GBP': {
-    'PLN': 5.2,
-    'USD': 1.32,
-    'EUR': 1.16,
+  'lbs': {
+    'KG': 0.453592,
+    'g': 453.592,
+    'dag': 45.3592,
+    't': 0.000453592,
+    'oz': 16.0,
+  },
+  't': {
+    'KG': 1000.0,
+    'g': 1000000.0,
+    'dag': 100000.0,
+    'lbs': 2204.62,
+    'oz': 35274.0,
+  },
+  'oz': {
+    'KG': 0.0283495,
+    'g': 28.3495,
+    'dag': 2.83495,
+    'lbs': 0.0625,
+    't': 2.83495e-5,
   },
 };
 
 double convert(String from, String to, double toConvert) {
   if (from == to) return toConvert;
-  return (currenciesCoefficients[from]?[to] ?? 1.0) * toConvert;
+  return (wagesCoefficients[from]?[to] ?? 1.0) * toConvert;
 }
 
-class CurrencyPage extends StatefulWidget {
-  const CurrencyPage({super.key});
+
+class WagePage extends StatefulWidget {
+  const WagePage({super.key});
 
   @override
-  State<CurrencyPage> createState() => _CurrencyPageState();
+  State<WagePage> createState() => _WagePageState();
 }
-
 typedef MenuEntry = DropdownMenuEntry<String>;
 
-class _CurrencyPageState extends State<CurrencyPage> {
-  String dropdownValueToConvert = currencies.first;
-  String dropdownValueConverted = currencies.first;
+class _WagePageState extends State<WagePage> {
+  String dropdownValueToConvert = wages.first;
+  String dropdownValueConverted = wages.first;
   double toConvert = 0.0;
 
   double get convertedValue => convert(dropdownValueToConvert, dropdownValueConverted, toConvert);
 
   static final List<MenuEntry> menuEntries = UnmodifiableListView<MenuEntry>(
-    currencies.map<MenuEntry>((String name) => MenuEntry(value: name, label: name)),
+    wages.map<MenuEntry>((String name) => MenuEntry(value: name, label: name)),
   );
 
   @override
@@ -62,7 +86,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
-        title: const Text('Convert Currencies'),
+        title: const Text('Convert Wages'),
       ),
       body: Column(
         children: [
@@ -89,7 +113,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                     ),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
-                      RegExp(r'^\d*[\.,]?\d{0,2}'),
+                      RegExp(r'^\d*[\.,]?\d{0,4}'),
                       ),
                     ],
                     keyboardType: TextInputType.number,
@@ -129,7 +153,7 @@ class _CurrencyPageState extends State<CurrencyPage> {
                     controller: TextEditingController(
                       text: (toConvert == 0 && dropdownValueToConvert == dropdownValueConverted)
                           ? ''
-                          : (convertedValue).toStringAsFixed(2),
+                          : (convertedValue).toStringAsFixed(4),
                     ),
                   ),
                 ),
