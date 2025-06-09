@@ -50,7 +50,7 @@ class ConverterHome extends StatelessWidget {
                       );
                     }, 
                     child: Text(
-                      'Waluty',
+                      'Convert Currency',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -76,7 +76,7 @@ class ConverterHome extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Wagi',
+                      'Convert Wages',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
@@ -102,7 +102,7 @@ class ConverterHome extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Długości',
+                      'Convert Lengths',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.blue,
