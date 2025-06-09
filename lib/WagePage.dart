@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/services.dart';
 
 List<String> wages = [
-  'KG',
+  'kg',
   'g',
   'dag',
   'lbs',
@@ -12,7 +12,7 @@ List<String> wages = [
 ];
 
 Map<String, Map<String, double>> wagesCoefficients = {
-  'KG': {
+  'kg': {
     'g': 1000.0,
     'dag': 100.0,
     'lbs': 2.20462,
@@ -20,35 +20,35 @@ Map<String, Map<String, double>> wagesCoefficients = {
     'oz': 35.274,
   },
   'g': {
-    'KG': 0.001,
+    'kg': 0.001,
     'dag': 0.1,
     'lbs': 0.00220462,
     't': 0.000001,
     'oz': 0.035274,
   },
   'dag': {
-    'KG': 0.01,
+    'kg': 0.01,
     'g': 10.0,
     'lbs': 0.0220462,
     't': 0.00001,
     'oz': 0.35274,
   },
   'lbs': {
-    'KG': 0.453592,
+    'kg': 0.453592,
     'g': 453.592,
     'dag': 45.3592,
     't': 0.000453592,
     'oz': 16.0,
   },
   't': {
-    'KG': 1000.0,
+    'kg': 1000.0,
     'g': 1000000.0,
     'dag': 100000.0,
     'lbs': 2204.62,
     'oz': 35274.0,
   },
   'oz': {
-    'KG': 0.0283495,
+    'kg': 0.0283495,
     'g': 28.3495,
     'dag': 2.83495,
     'lbs': 0.0625,
@@ -116,7 +116,7 @@ class _WagePageState extends State<WagePage> {
                       RegExp(r'^\d*[\.,]?\d{0,4}'),
                       ),
                     ],
-                    keyboardType: TextInputType.number,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     onChanged: (String value) {
                       value = value.replaceAll(',', '.');
                       setState(() {

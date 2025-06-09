@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'CurrencyPage.dart';
 import 'WagePage.dart';
+import 'LengthPage.dart';
 
 void main() {
   runApp(const Converter());
@@ -92,7 +93,14 @@ class ConverterHome extends StatelessWidget {
                     size: 50,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LengthPage(),
+                        ),
+                      );
+                    },
                     child: Text(
                       'Długości',
                       style: TextStyle(
